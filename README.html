@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        ol>li {
+            font-weight: bold;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .code {
+            display: inline-block;
+            font-family: monospace;
+            line-height: 140%;
+            padding-right: 3%;
+            padding-left: 1%;
+            white-space: pre;
+            background: #faf8f1;
+        }
+    </style>
+    <title>Embedding a PanIntelligence Chart</title>
+</head>
+
+<body>
+    <h1>Example: Embedding a PanIntelligence Chart</h1>
+    <p>Example code for embedding a panintelligence chart</p>
+    <p>The code in <a href="index.html">index.html</a> should be simple enough, but there are inline comments to help you understand.
+        <h1>Instructions</h1>
+        <ul>
+            <li>
+                <h2>Step 1 - Get this repository</h2>
+                <span>Copy this repository to a webserver (tomcat, apache, or iis).</span>
+            </li>
+            <li>
+                <h2>Step 2 - Edit your <a href="index.html">index.html</a></h2>
+                <span><p>Change the value of url to your server's destination.</p>
+                  <p class="code">var url = "https://localhost:8224/" //Change this to your server</p>
+                  <p>Change the login details to the user you want to login as.</p>
+                  <p class="code">var username = "admin" //Change this to the user you want to login as
+var password = "dashboard" //Change this to user's password</p>
+                  <p>Change the chart ID in chartFragment (ex.: for chart 157, it would be #chart-filter/157__1)</p>
+                  <p class="code">var chartFragment = "#chart-filter/157__1" //Change 157__1 to the chart ID you want to see</p>
+                </span>
+
+
+            </li>
+            <li>
+                <h2>Step 3 - Configure your Frame Ancestors settings</h2>
+                <p>By default embedding the dashboard in an iframe will no longer work without configuration, this is by design to provide the most secure out of the box configuration.
+                </p>
+                <p>We have implemented click­jacking protection in the form of the recommended 'frame­ancestors'. By default this is configured to disallow any embedding from any site. This can be changed via the panintelligence installer or Configuration tool (accessible from windows start menu or running Port
+                    Selector directly).
+                </p>
+                <p>To enable embedding go to the advanced tab.and configure according to your security preferences: </p>
+                <ol>
+                    <li>None:</li>
+                    <span>No embedding allowed</span>
+                    <li>All:</li>
+                    <span>Embedding allowed from any location</span>
+                    <li>Self</li>
+                    <span>Embedding allowed from the same host</span>
+                    <li>Hosts</li>
+                    <span>Embedding allowed from the hosts specified in the following dialogue box</span>
+                </ol>
+
+                <p>The above help is also available by pressing the '?' in the configuration tool. This can also be configured automatically with the unattended install config file.
+                </p>
+                </span>
+            </li>
+            <li>
+                <h2>Step 4 - See your newly embdedded chart!</h2>
+                <span>Access your index page through your webserver, and you should see an embedded chart!</span>
+            </li>
+
+
+        <h1>Need more help?</h1>
+        <p>For any questions, contact us at: <a href="mailto:support@panintelligence.com">support@panintelligence.com</a></p>
+</body>
+
+</html>
