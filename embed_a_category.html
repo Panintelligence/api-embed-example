@@ -1,91 +1,91 @@
 <html>
-  <head>
+<head>
     <title>Embedding a PanIntelligence Category</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="styles/style.css"/>
     <!-- Use JQuery to help with http calls -->
     <script src="js/jquery-3.2.1.min.js"></script>
-  </head>
-  <body>
-    <div style="background-color:#3F89AB;">
-      <a href="index.html"><img src="img/logo.png"/></a>
-    </div>
-    <div class="container">
-      <div class="flex-container">
+</head>
+<body>
+<div style="background-color:#3F89AB;">
+    <a href="index.html"><img src="img/logo.png"/></a>
+</div>
+<div class="container">
+    <div class="flex-container">
         <!-- ******************************************************************************************************** -->
         <!-- *                                           START OF EXAMPLE                                           * -->
         <!-- ******************************************************************************************************** -->
         <div class="column">
-          <h1>Example: Embedding a PanIntelligence Category</h1>
-          <p>Example code for embedding a panintelligence category</p>
-          <p>The code in this page should be simple enough, but there are inline comments to help you understand (just view the source of this page). There are also <a href="#instructions">instructions</a> on the right side (or below).</p>
-          <!-- The iFrame where we'll stick the chart into -->
-          <iframe id="category" width="700" height="500" src=""></iframe>
-          <h1>Need more help?</h1>
-          <p>If you need any more help, contact us at: <a href="mailto:support@panintelligence.com">support@panintelligence.com</a></p>
+            <h1>Example: Embedding a PanIntelligence Category</h1>
+            <p>Example code for embedding a panintelligence category</p>
+            <p>The code in this page should be simple enough, but there are inline comments to help you understand (just view the source of this page). There are also <a href="#instructions">instructions</a> on the right side (or below).</p>
+            <!-- The iFrame where we'll stick the chart into -->
+            <iframe id="category" width="700" height="500" src=""></iframe>
+            <h1>Need more help?</h1>
+            <p>If you need any more help, contact us at: <a href="mailto:support@panintelligence.com">support@panintelligence.com</a></p>
 
-          <!-- Helper to convert xml to json: https://github.com/metatribal/xmlToJSON -->
-          <script src="js/xmlToJSON.js"></script>
+            <!-- Helper to convert xml to json: https://github.com/metatribal/xmlToJSON -->
+            <script src="js/xmlToJSON.js"></script>
 
-          <script>
-            /**
-             *                                               Category display mode
-             *                                                        |
-             * Chart Embed URL https://localhost:8224/pi/?categoryMode=1#PA-CA###category/23
-             *                 |________________________||__________|   |_________________|
-             *                             |                |               |
-             *                       This is your           |    And this bit identifies
-             *                       dashboard URL          |     which category you want
-             *                                              |
-             *                                 This bit tells the dashboard
-             *                                    that you want a chart
-             */
+            <script>
+                /**
+                 *                                               Category display mode
+                 *                                                        |
+                 * Chart Embed URL https://localhost:8224/pi/?categoryMode=1#PA-CA###category/23
+                 *                 |________________________||__________|   |_________________|
+                 *                             |                |               |
+                 *                       This is your           |    And this bit identifies
+                 *                       dashboard URL          |     which category you want
+                 *                                              |
+                 *                                 This bit tells the dashboard
+                 *                                    that you want a chart
+                 */
 
-            //I'm separating this here because it makes it easier to insert the token after /chart
-            var url = "https://localhost:8080/"; //Change this to your server
-            var username = "admin"; //Change this to the user you want to login as
-            var password = "dashboard"; //Change this to user's password
-            var categoryId = "23"; //Change this to the category you want to see
-            var mode = "0"; //Change this to change the category mode you want to use
-            var categoryKey = "#PA-CA###category/";
-            var categoryFragment = categoryKey+categoryId;
-            var modeKey = "?categoryMode=";
-            var modeParam = modeKey+mode;
+                    //I'm separating this here because it makes it easier to insert the token after /chart
+                var url = "https://localhost:8080/"; //Change this to your server
+                var username = "admin"; //Change this to the user you want to login as
+                var password = "dashboard"; //Change this to user's password
+                var categoryId = "23"; //Change this to the category you want to see
+                var mode = "0"; //Change this to change the category mode you want to use
+                var categoryKey = "#PA-CA###category/";
+                var categoryFragment = categoryKey + categoryId;
+                var modeKey = "?categoryMode=";
+                var modeParam = modeKey + mode;
 
-            var apiToken = "panMISDashboardWebServices/api/token/";
+                var apiToken = "panMISDashboardWebServices/api/token/";
 
 
-            $.post("https://localhost:8224/" + apiToken, { username: username, password: password}, function(data){
-                var response = xmlToJSON.parseXML(data); // JSON is easier to manipulate in javascript...
-                var token = response.UserDetails[0].Token[0]._text;
-                loadCategory(token);
-            });
-
-            function loadCategory(token) {
-                // Issue an ajax request to embeddedTokenLogin with the token in the header to pick up the session cookies
-                $.ajax({
-                    type: "GET",
-                    url: url + "pi/auth/embeddedTokenLogin",
-                    contentType: "text/HTML",
-                    xhrFields: {
-                        withCredentials: true
-                    },
-                    beforeSend: function(xhr, settings) {
-                        // This is the header we need to set
-                        xhr.setRequestHeader("Authorization", "bearer " + token);
-                    },
-                    success: function(data){
-                        // Once we have a succesful ajax request with authentication we can just forward the browser and it will use the live session
-                        document.getElementById("category").src = url + "pi/" + modeParam + categoryFragment;
-                    }
+                $.post("https://localhost:8224/" + apiToken, {username: username, password: password}, function (data) {
+                    var response = xmlToJSON.parseXML(data); // JSON is easier to manipulate in javascript...
+                    var token = response.UserDetails[0].Token[0]._text;
+                    loadCategory(token);
                 });
-            }
 
-            function changeCategoryMode(catMode) {
-              var catId = document.getElementById("category").src.split(categoryKey)[1].split('/')[0];
-              document.getElementById("category").src = url + "/pi" + modeKey+catMode + categoryKey+catId;
-            }
-          </script>
+                function loadCategory(token) {
+                    // Issue an ajax request to embeddedTokenLogin with the token in the header to pick up the session cookies
+                    $.ajax({
+                        type: "GET",
+                        url: url + "pi/auth/embeddedTokenLogin",
+                        contentType: "text/HTML",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        beforeSend: function (xhr, settings) {
+                            // This is the header we need to set
+                            xhr.setRequestHeader("Authorization", "bearer " + token);
+                        },
+                        success: function (data) {
+                            // Once we have a succesful ajax request with authentication we can just forward the browser and it will use the live session
+                            document.getElementById("category").src = url + "pi/" + modeParam + categoryFragment;
+                        }
+                    });
+                }
+
+                function changeCategoryMode(catMode) {
+                    var catId = document.getElementById("category").src.split(categoryKey)[1].split('/')[0];
+                    document.getElementById("category").src = url + "/pi" + modeKey + catMode + categoryKey + catId;
+                }
+            </script>
         </div>
 
         <!-- ******************************************************************************************************** -->
@@ -93,21 +93,21 @@
         <!-- ******************************************************************************************************** -->
 
         <div class="column">
-          <h1><a name="instructions"/>Instructions</h1>
-          <h2>Step 1 - Setup</h2>
-          <span>See Steps 1, 2 and 3 of <a href="how_to_embed.html">Embedding a Panintelligence Chart</a></span>
+            <h1><a name="instructions"/>Instructions</h1>
+            <h2>Step 1 - Setup</h2>
+            <span>See Steps 1, 2 and 3 of <a href="how_to_embed.html">Embedding a Panintelligence Chart</a></span>
 
-          <h2>Step 2 - Embed the category</h2>
-          <p>Change the category ID in <code>categoryId</code></p>
-          <p>Edit the <code>mode</code> value to the one that suits you best from the list below</p>
-          <ul>
-            <li><code>0</code>: Normal mode [<a href="javascript:void(0);" onclick="changeCategoryMode('0');">view</a>]</li>
-            <li><code>1</code>: Headerless Single Category Mode (No Header, no category list) [<a href="javascript:void(0);" onclick="changeCategoryMode('1');">view</a>]</li>
-            <li><code>2</code>: Single Category Mode (With Header, no category list) [<a href="javascript:void(0);" onclick="changeCategoryMode('2');">view</a>]</li>
-            <li><code>3</code>: Headerless normal mode (i.e. contains the category list but not header) [<a href="javascript:void(0);" onclick="changeCategoryMode('3');">view</a>]</li>
-          </ul>
+            <h2>Step 2 - Embed the category</h2>
+            <p>Change the category ID in <code>categoryId</code></p>
+            <p>Edit the <code>mode</code> value to the one that suits you best from the list below</p>
+            <ul>
+                <li><code>0</code>: Normal mode [<a href="javascript:void(0);" onclick="changeCategoryMode('0');">view</a>]</li>
+                <li><code>1</code>: Headerless Single Category Mode (No Header, no category list) [<a href="javascript:void(0);" onclick="changeCategoryMode('1');">view</a>]</li>
+                <li><code>2</code>: Single Category Mode (With Header, no category list) [<a href="javascript:void(0);" onclick="changeCategoryMode('2');">view</a>]</li>
+                <li><code>3</code>: Headerless normal mode (i.e. contains the category list but not header) [<a href="javascript:void(0);" onclick="changeCategoryMode('3');">view</a>]</li>
+            </ul>
         </div>
-      </div>
     </div>
-  </body>
+</div>
+</body>
 </html>

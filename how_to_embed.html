@@ -1,84 +1,82 @@
 <html>
-  <head>
+<head>
     <title>Embedding a PanIntelligence Chart</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="styles/style.css"/>
     <!-- Use JQuery to help with http calls -->
     <script src="js/jquery-3.2.1.min.js"></script>
-  </head>
-  <body>
-    <div class="header">
-      <a href="index.html"><img src="img/logo.png"/></a>
-    </div>
-    <div class="container">
-      <div class="flex-container">
+</head>
+<body>
+<div class="header">
+    <a href="index.html"><img src="img/logo.png"/></a>
+</div>
+<div class="container">
+    <div class="flex-container">
         <!-- ******************************************************************************************************** -->
         <!-- *                                           START OF EXAMPLE                                           * -->
         <!-- ******************************************************************************************************** -->
         <div class="column">
-          <h1>Example: Embedding a PanIntelligence Chart</h1>
-          <p>Example code for embedding a panintelligence chart</p>
-          <p>The code in this page should be simple enough, but there are inline comments to help you understand (just view the source of this page). There are also <a href="#instructions">instructions</a> on the right side (or below).</p>
-          <!-- The iFrame where we'll stick the chart into -->
-          <iframe id="chart" width="500" height="500" src=""></iframe>
-          <h1>Need more help?</h1>
-          <p>If you need any more help, contact us at: <a href="mailto:support@panintelligence.com">support@panintelligence.com</a></p>
+            <h1>Example: Embedding a PanIntelligence Chart</h1>
+            <p>Example code for embedding a panintelligence chart</p>
+            <p>The code in this page should be simple enough, but there are inline comments to help you understand (just view the source of this page). There are also <a href="#instructions">instructions</a> on the right side (or below).</p>
+            <!-- The iFrame where we'll stick the chart into -->
+            <iframe id="chart" width="500" height="500" src=""></iframe>
+            <h1>Need more help?</h1>
+            <p>If you need any more help, contact us at: <a href="mailto:support@panintelligence.com">support@panintelligence.com</a></p>
 
-          <!-- Helper to convert xml to json: https://github.com/metatribal/xmlToJSON -->
-          <script src="js/xmlToJSON.js"></script>
+            <!-- Helper to convert xml to json: https://github.com/metatribal/xmlToJSON -->
+            <script src="js/xmlToJSON.js"></script>
 
-          <script>
-            /**
-             * Chart Embed URL https://localhost:224/pi/chart#chart-filter/290__1
-             *                 |_______________________||___||__________________|
-             *                             |              |            |
-             *                       This is your         |    And this bit identifies
-             *                       dashboard URL        |     which chart you want
-             *                                            |
-             *                               This bit tells the dashboard
-             *                                  that you want a chart
-             */
+            <script>
+                /**
+                 * Chart Embed URL https://localhost:224/pi/chart#chart-filter/290__1
+                 *                 |_______________________||___||__________________|
+                 *                             |              |            |
+                 *                       This is your         |    And this bit identifies
+                 *                       dashboard URL        |     which chart you want
+                 *                                            |
+                 *                               This bit tells the dashboard
+                 *                                  that you want a chart
+                 */
 
-            //I'm separating this here because it makes it easier to insert the token after /chart
-            var url = "https://localhost:8224/" //Change this to your server
-            var username = "admin" //Change this to the user you want to login as
-            var password = "dashboard" //Change this to user's password
-            var chartFragment = "#chart-filter/157__1" //Change this to the chart you want to see
+                    //I'm separating this here because it makes it easier to insert the token after /chart
+                var url = "https://localhost:8224/" //Change this to your server
+                var username = "admin" //Change this to the user you want to login as
+                var password = "dashboard" //Change this to user's password
+                var chartFragment = "#chart-filter/157__1" //Change this to the chart you want to see
 
-            var apiToken = "panMISDashboardWebServices/api/token/"
-            var piChart = "pi/chart"
+                var apiToken = "panMISDashboardWebServices/api/token/"
+                var piChart = "pi/chart"
 
 
-            $.post(url + apiToken, { username: username, password: password}, function(data){
-                var response = xmlToJSON.parseXML(data) // JSON is easier to manipulate in javascript...
-                var token = response.UserDetails[0].Token[0]._text
-                loadChart(token)
-            });
-
-            function loadChart(token)
-            {
-                // Issue an ajax request to embeddedTokenLogin with the token in the header to pick up the session cookies
-                $.ajax({
-                    type: "GET",
-                    url: url + "pi/auth/embeddedTokenLogin",
-                    contentType: "text/HTML",
-                    xhrFields: {
-                        withCredentials: true
-                    },
-                    beforeSend: function(xhr, settings) {
-                        // This is the header we need to set
-                        xhr.setRequestHeader("Authorization", "bearer " + token);
-                    },
-                    success: function(data){
-                        // Once we have a succesful ajax request with authentication we can just forward the browser and it will use the live session
-                        document.getElementById("chart").src = url + piChart + chartFragment;
-                    }
+                $.post(url + apiToken, {username: username, password: password}, function (data) {
+                    var response = xmlToJSON.parseXML(data) // JSON is easier to manipulate in javascript...
+                    var token = response.UserDetails[0].Token[0]._text
+                    loadChart(token)
                 });
-            }
+
+                function loadChart(token) {
+                    // Issue an ajax request to embeddedTokenLogin with the token in the header to pick up the session cookies
+                    $.ajax({
+                        type: "GET",
+                        url: url + "pi/auth/embeddedTokenLogin",
+                        contentType: "text/HTML",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        beforeSend: function (xhr, settings) {
+                            // This is the header we need to set
+                            xhr.setRequestHeader("Authorization", "bearer " + token);
+                        },
+                        success: function (data) {
+                            // Once we have a succesful ajax request with authentication we can just forward the browser and it will use the live session
+                            document.getElementById("chart").src = url + piChart + chartFragment;
+                        }
+                    });
+                }
 
 
-
-          </script>
+            </script>
         </div>
 
         <!-- ******************************************************************************************************** -->
@@ -86,50 +84,50 @@
         <!-- ******************************************************************************************************** -->
 
         <div class="column">
-          <h1><a name="instructions"/>Instructions</h1>
-          <h2>Step 1 - Prepare your application</h2>
-          <p>You can do one of the following:</p>
-          <ul>
-            <li>Use an existing application.</li>
-            <li>Copy this folder to another webserver (tomcat, apache or nginx).</li>
-            <li>Or edit this file as it is and start your dashboard.</li>
-          </ul>
+            <h1><a name="instructions"/>Instructions</h1>
+            <h2>Step 1 - Prepare your application</h2>
+            <p>You can do one of the following:</p>
+            <ul>
+                <li>Use an existing application.</li>
+                <li>Copy this folder to another webserver (tomcat, apache or nginx).</li>
+                <li>Or edit this file as it is and start your dashboard.</li>
+            </ul>
 
-          <h2>Step 2 - Configure your Frame Ancestors settings</h2>
-          <p>By default embedding the dashboard in an iframe will no longer work without configuration, this is by design to provide the most secure out of the box configuration.</p>
-          <p>We have implemented click­jacking protection in the form of the recommended 'frame­ancestors'. By default this is configured to disallow any embedding from any site. This can be changed via the panintelligence installer or Configuration tool (accessible from windows start menu or running Port Selector directly).</p>
-          <p>To enable embedding go to the advanced tab and configure according to your security preferences: </p>
-          <ol>
-            <li><b>None</b>: No embedding allowed</li>
-            <li><b>Self</b>: Embedding allowed from the same host</li>
-            <li><b>Hosts</b>: Embedding allowed from the hosts specified in the space separated list</li>
-          </ol>
+            <h2>Step 2 - Configure your Frame Ancestors settings</h2>
+            <p>By default embedding the dashboard in an iframe will no longer work without configuration, this is by design to provide the most secure out of the box configuration.</p>
+            <p>We have implemented click­jacking protection in the form of the recommended 'frame­ancestors'. By default this is configured to disallow any embedding from any site. This can be changed via the panintelligence installer or Configuration tool (accessible from windows start menu or running Port Selector directly).</p>
+            <p>To enable embedding go to the advanced tab and configure according to your security preferences: </p>
+            <ol>
+                <li><b>None</b>: No embedding allowed</li>
+                <li><b>Self</b>: Embedding allowed from the same host</li>
+                <li><b>Hosts</b>: Embedding allowed from the hosts specified in the space separated list</li>
+            </ol>
 
-          <p>The above help is also available by pressing the '?' in the configuration tool. This can also be configured automatically with the unattended install config file.</p>
+            <p>The above help is also available by pressing the '?' in the configuration tool. This can also be configured automatically with the unattended install config file.</p>
 
-          <h2>Step 3 - Edit your html page</h2>
-          <p>Change the value of <code>url</code> to your server's destination.</p>
+            <h2>Step 3 - Edit your html page</h2>
+            <p>Change the value of <code>url</code> to your server's destination.</p>
             <code class="block">
-//Change this to your server
-var url = "https://localhost:8224/";
+                //Change this to your server
+                var url = "https://localhost:8224/";
             </code>
             <p>Change the login details to the user you want to login as.</p>
             <code class="block">
-//Change this to the user you want to login as
-var username = "admin";
-//Change this to user's password
-var password = "dashboard";
+                //Change this to the user you want to login as
+                var username = "admin";
+                //Change this to user's password
+                var password = "dashboard";
             </code>
             <p>Change the chart ID in <code>chartFragment</code> (ex.: for chart 200, it would be <code>#chart-filter/200__1</code>)</p>
             <code class="block">
-//Change 157__1 to the chart ID you want to see
-var chartFragment = "#chart-filter/157__1";
+                //Change 157__1 to the chart ID you want to see
+                var chartFragment = "#chart-filter/157__1";
             </code>
 
-          <h2>Step 4 - See your newly embdedded chart!</h2>
-          <p>Access your page through your webserver, and you should see an embedded chart!</p>
+            <h2>Step 4 - See your newly embdedded chart!</h2>
+            <p>Access your page through your webserver, and you should see an embedded chart!</p>
         </div>
-      </div>
     </div>
-  </body>
+</div>
+</body>
 </html>

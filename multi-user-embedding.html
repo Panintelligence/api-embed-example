@@ -1,98 +1,101 @@
 <html>
-  <head>
+<head>
     <title>Embedding charts for different users in same page</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="styles/style.css"/>
     <!-- Use JQuery to help with http calls -->
     <script src="js/jquery-3.2.1.min.js"></script>
-  </head>
-  <body>
-    <div class="header">
-      <a href="index.html"><img src="img/logo.png"/></a>
-    </div>
-    <div class="container">
-      <div class="flex-container">
+</head>
+<body>
+<div class="header">
+    <a href="index.html"><img src="img/logo.png"/></a>
+</div>
+<div class="container">
+    <div class="flex-container">
         <!-- ******************************************************************************************************** -->
         <!-- *                                           START OF EXAMPLE                                           * -->
         <!-- ******************************************************************************************************** -->
         <div class="column">
-          <h1>Example: Embedding charts for different users in same page</h1>
-          <p>Example code for embedding a panintelligence chart</p>
-          <p>The code in this page should be simple enough, but there are inline comments to help you understand (just view the source of this page). There are also <a href="#instructions">instructions</a> on the right side (or below).</p>
-          <!-- The iFrame where we'll stick the chart into -->
-          Login: <input id="u1" type="text" value="ru1"/> Password: <input id="p1" type="password" value="dashboard"/><button id="c1btn">Go</button>
-          <iframe id="chart1" width="500" height="500" src=""></iframe>
-          <br/>
-          Login: <input id="u2" type="text" value="ru2"/> Password: <input id="p2" type="password" value="dashboard"/><button id="c2btn">Go</button>
-          <iframe id="chart2" width="500" height="500" src=""></iframe>
-          <h1>Need more help?</h1>
-          <p>If you need any more help, contact us at: <a href="mailto:support@panintelligence.com">support@panintelligence.com</a></p>
+            <h1>Example: Embedding charts for different users in same page</h1>
+            <p>Example code for embedding a panintelligence chart</p>
+            <p>The code in this page should be simple enough, but there are inline comments to help you understand (just view the source of this page). There are also <a href="#instructions">instructions</a> on the right side (or below).</p>
+            <!-- The iFrame where we'll stick the chart into -->
+            Login: <input id="u1" type="text" value="ru1"/> Password: <input id="p1" type="password" value="dashboard"/>
+            <button id="c1btn">Go</button>
+            <iframe id="chart1" width="500" height="500" src=""></iframe>
+            <br/>
+            Login: <input id="u2" type="text" value="ru2"/> Password: <input id="p2" type="password" value="dashboard"/>
+            <button id="c2btn">Go</button>
+            <iframe id="chart2" width="500" height="500" src=""></iframe>
+            <h1>Need more help?</h1>
+            <p>If you need any more help, contact us at: <a href="mailto:support@panintelligence.com">support@panintelligence.com</a></p>
 
-          <!-- Helper to convert xml to json: https://github.com/metatribal/xmlToJSON -->
-          <script src="js/xmlToJSON.js"></script>
+            <!-- Helper to convert xml to json: https://github.com/metatribal/xmlToJSON -->
+            <script src="js/xmlToJSON.js"></script>
 
-          <script>
-            /**
-             * Chart Embed URL https://localhost:224/pi/chart#chart-filter/290__1
-             *                 |_______________________||___||__________________|
-             *                             |              |            |
-             *                       This is your         |    And this bit identifies
-             *                       dashboard URL        |     which chart you want
-             *                                            |
-             *                               This bit tells the dashboard
-             *                                  that you want a chart
-             */
+            <script>
+                /**
+                 * Chart Embed URL https://localhost:224/pi/chart#chart-filter/290__1
+                 *                 |_______________________||___||__________________|
+                 *                             |              |            |
+                 *                       This is your         |    And this bit identifies
+                 *                       dashboard URL        |     which chart you want
+                 *                                            |
+                 *                               This bit tells the dashboard
+                 *                                  that you want a chart
+                 */
 
-            //I'm separating this here because it makes it easier to insert the token after /chart
-            var url = "https://localhost:8224/" //Change this to your server
-            var tokenUrl = "https://localhost:8224/" //Change this to your server
+                    //I'm separating this here because it makes it easier to insert the token after /chart
+                var url = "https://localhost:8224/" //Change this to your server
+                var tokenUrl = "https://localhost:8224/" //Change this to your server
 
-            var username1 = document.getElementById("u1").value
-            var username2 = document.getElementById("u2").value
-            var password1 = document.getElementById("p1").value
-            var password2 = document.getElementById("p2").value
+                var username1 = document.getElementById("u1").value
+                var username2 = document.getElementById("u2").value
+                var password1 = document.getElementById("p1").value
+                var password2 = document.getElementById("p2").value
 
-            var chartFragment = "#chart-filter/198__1" //Change this to the chart you want to see
+                var chartFragment = "#chart-filter/198__1" //Change this to the chart you want to see
 
-            var apiToken = "panMISDashboardWebServices/api/token/"
-            var piChart = "pi/chart"
+                var apiToken = "panMISDashboardWebServices/api/token/"
+                var piChart = "pi/chart"
 
-            function loginAndLoad(chart, user, pass){
-              $.post(tokenUrl + apiToken, { username: user, password: pass}, function(data){
-                  var response = xmlToJSON.parseXML(data) // JSON is easier to manipulate in javascript...
-                  var token = response.UserDetails[0].Token[0]._text
-                  loadChart(token, chart)
-              });
-            }
+                function loginAndLoad(chart, user, pass) {
+                    $.post(tokenUrl + apiToken, {username: user, password: pass}, function (data) {
+                        var response = xmlToJSON.parseXML(data) // JSON is easier to manipulate in javascript...
+                        var token = response.UserDetails[0].Token[0]._text
+                        loadChart(token, chart)
+                    });
+                }
 
-            function loadChart(token, chartElementId) {
-                // Issue an ajax request to embeddedTokenLogin with the token in the header to pick up the session cookies
-                $.ajax({
-                    type: "GET",
-                    url: url + "pi/auth/embeddedTokenLogin",
-                    contentType: "text/HTML",
-                    xhrFields: {
-                        withCredentials: true
-                    },
-                    beforeSend: function(xhr, settings) {
-                        // This is the header we need to set
-                        xhr.setRequestHeader("Authorization", "bearer " + token);
-                    },
-                    success: function(data){
-                        // Once we have a succesful ajax request with authentication we can just forward the browser and it will use the live session
-                        document.getElementById(chartElementId).src = url + piChart + chartFragment;
-                        document.getElementById(chartElementId)
-                    }
-                });
-            }
-            document.getElementById("c1btn").onclick = function(){
-              loginAndLoad("chart1", username1, password1);
-            }
-            document.getElementById("c2btn").onclick = function(){
-              loginAndLoad("chart2", username2, password2);
-            }
+                function loadChart(token, chartElementId) {
+                    // Issue an ajax request to embeddedTokenLogin with the token in the header to pick up the session cookies
+                    $.ajax({
+                        type: "GET",
+                        url: url + "pi/auth/embeddedTokenLogin",
+                        contentType: "text/HTML",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        beforeSend: function (xhr, settings) {
+                            // This is the header we need to set
+                            xhr.setRequestHeader("Authorization", "bearer " + token);
+                        },
+                        success: function (data) {
+                            // Once we have a succesful ajax request with authentication we can just forward the browser and it will use the live session
+                            document.getElementById(chartElementId).src = url + piChart + chartFragment;
+                            document.getElementById(chartElementId)
+                        }
+                    });
+                }
 
-          </script>
+                document.getElementById("c1btn").onclick = function () {
+                    loginAndLoad("chart1", username1, password1);
+                }
+                document.getElementById("c2btn").onclick = function () {
+                    loginAndLoad("chart2", username2, password2);
+                }
+
+            </script>
         </div>
 
         <!-- ******************************************************************************************************** -->
@@ -100,19 +103,19 @@
         <!-- ******************************************************************************************************** -->
 
         <div class="column">
-          <h1><a name="instructions"/>Instructions</h1>
-          <h2>Step 1 - Prepare your application</h2>
-          <span>See <a href="how_to_embed.html">Embedding a Panintelligence Chart</a>.</span>
+            <h1><a name="instructions"/>Instructions</h1>
+            <h2>Step 1 - Prepare your application</h2>
+            <span>See <a href="how_to_embed.html">Embedding a Panintelligence Chart</a>.</span>
 
-          <h2>Step 2 - Prepare the dashboard</h2>
-          <p>Create two users with different user restrictions.</p>
-          <p>Create a chart that would include the object the users are being restricted with (make sure the users have access to the chart).</p>
+            <h2>Step 2 - Prepare the dashboard</h2>
+            <p>Create two users with different user restrictions.</p>
+            <p>Create a chart that would include the object the users are being restricted with (make sure the users have access to the chart).</p>
 
-          <h2>Step 3 - Login as both users</h2>
-          <p>Fill in both users' details and press Go for each (you may have to press the chart refresh button if the chart is already loaded since the cache thinks nothing has changed).</p>
-          <p>Both charts should yield different results</p>
+            <h2>Step 3 - Login as both users</h2>
+            <p>Fill in both users' details and press Go for each (you may have to press the chart refresh button if the chart is already loaded since the cache thinks nothing has changed).</p>
+            <p>Both charts should yield different results</p>
         </div>
-      </div>
     </div>
-  </body>
+</div>
+</body>
 </html>

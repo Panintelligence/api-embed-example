@@ -1,91 +1,90 @@
 <html>
-  <head>
+<head>
     <title>Embedding a PanIntelligence Chart</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="styles/style.css"/>
     <!-- Use JQuery to help with http calls -->
     <script src="js/jquery-3.2.1.min.js"></script>
-  </head>
-  <body>
-    <div style="background-color:#3F89AB;">
-      <a href="index.html"><img src="img/logo.png"/></a>
-    </div>
-    <div class="container">
-      <div class="flex-container">
+</head>
+<body>
+<div style="background-color:#3F89AB;">
+    <a href="index.html"><img src="img/logo.png"/></a>
+</div>
+<div class="container">
+    <div class="flex-container">
         <!-- ******************************************************************************************************** -->
         <!-- *                                           START OF EXAMPLE                                           * -->
         <!-- ******************************************************************************************************** -->
         <div class="column1">
-          <h1>Example: Using temporary filters to filter a chart vai javascript</h1>
-          <p>Example code for filtering an embedded panintelligence chart</p>
-          <p>The code in this page should be simple enough, but there are inline comments to help you understand (just view the source of this page). There are also <a href="#instructions">instructions</a> on the right side (or below).</p>
-          <div>
-            <button onclick="reset()">Reset</button>
-            <button onclick="applyFilter('eq__[[Stock Item Name]]{{Linoleum}}')">Linoleum only</button>
-            <button onclick="applyFilter('lt__[[Order Value]]{{500000}}')">Item orders with less than 500k</button>
-            <button onclick="applyFilter('nlike__[[Stock Item Name]]{{AB%}}')">Non AB* items</button>
-          </div>
-          <!-- The iFrame where we'll stick the chart into -->
-          <iframe id="chart" width="500" height="500" src=""></iframe>
-          <h1>Need more help?</h1>
-          <p>If you need any more help, contact us at: <a href="mailto:support@panintelligence.com">support@panintelligence.com</a></p>
+            <h1>Example: Using temporary filters to filter a chart vai javascript</h1>
+            <p>Example code for filtering an embedded panintelligence chart</p>
+            <p>The code in this page should be simple enough, but there are inline comments to help you understand (just view the source of this page). There are also <a href="#instructions">instructions</a> on the right side (or below).</p>
+            <div>
+                <button onclick="reset()">Reset</button>
+                <button onclick="applyFilter('eq__[[Stock Item Name]]{{Linoleum}}')">Linoleum only</button>
+                <button onclick="applyFilter('lt__[[Order Value]]{{500000}}')">Item orders with less than 500k</button>
+                <button onclick="applyFilter('nlike__[[Stock Item Name]]{{AB%}}')">Non AB* items</button>
+            </div>
+            <!-- The iFrame where we'll stick the chart into -->
+            <iframe id="chart" width="500" height="500" src=""></iframe>
+            <h1>Need more help?</h1>
+            <p>If you need any more help, contact us at: <a href="mailto:support@panintelligence.com">support@panintelligence.com</a></p>
 
-          <!-- Helper to convert xml to json: https://github.com/metatribal/xmlToJSON -->
-          <script src="js/xmlToJSON.js"></script>
+            <!-- Helper to convert xml to json: https://github.com/metatribal/xmlToJSON -->
+            <script src="js/xmlToJSON.js"></script>
 
-          <script>
-            //I'm separating this here because it makes it easier to insert the token after /chart
-            var url = "https://localhost:8224/"; //Change this to your server
-            var username = "admin"; //Change this to the user you want to login as
-            var password = "dashboard"; //Change this to user's password
-            var chartFragment = "#chart-filter/506__1"; //Change this to the chart you want to see
+            <script>
+                //I'm separating this here because it makes it easier to insert the token after /chart
+                var url = "https://localhost:8224/"; //Change this to your server
+                var username = "admin"; //Change this to the user you want to login as
+                var password = "dashboard"; //Change this to user's password
+                var chartFragment = "#chart-filter/506__1"; //Change this to the chart you want to see
 
-            var apiToken = "panMISDashboardWebServices/api/token/";
-            var piChart = "pi/chart";
+                var apiToken = "panMISDashboardWebServices/api/token/";
+                var piChart = "pi/chart";
 
 
-            $.post(url + apiToken, { username: username, password: password}, function(data){
-                var response = xmlToJSON.parseXML(data); // JSON is easier to manipulate in javascript...
-                var token = response.UserDetails[0].Token[0]._text;
-                loadChart(token);
-            });
-
-            function loadChart(token)
-            {
-                // Issue an ajax request to embeddedTokenLogin with the token in the header to pick up the session cookies
-                $.ajax({
-                    type: "GET",
-                    url: url + "pi/auth/embeddedTokenLogin",
-                    contentType: "text/HTML",
-                    xhrFields: {
-                        withCredentials: true
-                    },
-                    beforeSend: function(xhr, settings) {
-                        // This is the header we need to set
-                        xhr.setRequestHeader("Authorization", "bearer " + token);
-                    },
-                    success: function(data){
-                        // Once we have a succesful ajax request with authentication we can just forward the browser and it will use the live session
-                        document.getElementById("chart").src = url + piChart + chartFragment;
-                    }
+                $.post(url + apiToken, {username: username, password: password}, function (data) {
+                    var response = xmlToJSON.parseXML(data); // JSON is easier to manipulate in javascript...
+                    var token = response.UserDetails[0].Token[0]._text;
+                    loadChart(token);
                 });
-            };
 
-            function applyFilter(filter){
-              var tmpFilters = "/t-f-p="
-              var oldUrl = document.getElementById("chart").src.split(tmpFilters);
-              var simpleUrl = oldUrl[0];
-              var oldFilters = oldUrl.length > 1 ? oldUrl[1] : '';
+                function loadChart(token) {
+                    // Issue an ajax request to embeddedTokenLogin with the token in the header to pick up the session cookies
+                    $.ajax({
+                        type: "GET",
+                        url: url + "pi/auth/embeddedTokenLogin",
+                        contentType: "text/HTML",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        beforeSend: function (xhr, settings) {
+                            // This is the header we need to set
+                            xhr.setRequestHeader("Authorization", "bearer " + token);
+                        },
+                        success: function (data) {
+                            // Once we have a succesful ajax request with authentication we can just forward the browser and it will use the live session
+                            document.getElementById("chart").src = url + piChart + chartFragment;
+                        }
+                    });
+                };
 
-              var newUrl = simpleUrl + tmpFilters + filter + (oldFilters !== "" ? "/!$!" + oldFilters : "")
-              document.getElementById("chart").src = newUrl;
-            };
+                function applyFilter(filter) {
+                    var tmpFilters = "/t-f-p="
+                    var oldUrl = document.getElementById("chart").src.split(tmpFilters);
+                    var simpleUrl = oldUrl[0];
+                    var oldFilters = oldUrl.length > 1 ? oldUrl[1] : '';
 
-            function reset(){
-              document.getElementById("chart").src = url + piChart + chartFragment;
-            }
+                    var newUrl = simpleUrl + tmpFilters + filter + (oldFilters !== "" ? "/!$!" + oldFilters : "")
+                    document.getElementById("chart").src = newUrl;
+                };
 
-          </script>
+                function reset() {
+                    document.getElementById("chart").src = url + piChart + chartFragment;
+                }
+
+            </script>
         </div>
 
         <!-- ******************************************************************************************************** -->
@@ -93,66 +92,66 @@
         <!-- ******************************************************************************************************** -->
 
         <div class="column2">
-          <h1><a name="instructions"/>Instructions</h1>
-          <h2>Step 1 - Embed your chart</h2>
-          <span>See <a href="how_to_embed.html">Embedding a Panintelligence Chart</a></span>
+            <h1><a name="instructions"/>Instructions</h1>
+            <h2>Step 1 - Embed your chart</h2>
+            <span>See <a href="how_to_embed.html">Embedding a Panintelligence Chart</a></span>
 
-          <h2>Step 2 - Adding filters</h2>
-          <h3>Full URL Examples</h3>
-          <code class="block">
-https://localhost:8224/pi/chart#chart-filter/195__1/t-f-p=... -------- Use this URL prefix, and add the filters
-E.g.
-https://localhost:8224/pi/chart#chart-filter/195__1/t-f-p=eq__[[Region]]{{North}}   ------ 1 filter
-https://localhost:8224/pi/chart#chart-filter/195__1/t-f-p=eq__[[Region]]{{North}}/!$!gt__[[Count]]{{30}}  ------2 filters
-          </code>
+            <h2>Step 2 - Adding filters</h2>
+            <h3>Full URL Examples</h3>
+            <code class="block">
+                https://localhost:8224/pi/chart#chart-filter/195__1/t-f-p=... -------- Use this URL prefix, and add the filters
+                E.g.
+                https://localhost:8224/pi/chart#chart-filter/195__1/t-f-p=eq__[[Region]]{{North}} ------ 1 filter
+                https://localhost:8224/pi/chart#chart-filter/195__1/t-f-p=eq__[[Region]]{{North}}/!$!gt__[[Count]]{{30}} ------2 filters
+            </code>
 
-          <h3>Types of filters</h3>
+            <h3>Types of filters</h3>
 
-          <h4>Works for dimension and measure:</h4>
-          <code class="block">
-eq__[[Region]]{{North}} ------ dimension - Equals
-eq__[[Count]]{{50}}  ------ measure - (shows no data currently - issue has been reported as PANINT-5702)
-gt__[[Region]]{{North}} ------ Greater than - (Note: dimension - upper and lower case value makes a difference)
-gt__[[Count]]{{50}}
-lt__[[Region]]{{North}} ------ Lower than - (dimension - upper and lower case value makes a difference)
-lt__[[Count]]{{50}}
-ge__[[Region]]{{North}} ------ Greater or equals - (dimension - upper and lower case value makes a difference)
-ge__[[Count]]{{50}}
-le__[[Region]]{{North}} ------ Lower or equals - (dimension - upper and lower case value makes a difference)
-le__[[Count]]{{50}}
-ne__[[Region]]{{North}} ------ Not equals
-ne__[[Count]]{{50}}
-like__[[Region]]{{Nor%}} ------ Like - use % to represent wild card / any text
-like__[[Count]]{{'1%'}}  ------ measure - (may not work for certain databases)
-nlike__[[Region]]{{Nor%}} ------ Not like
-nlike__[[Count]]{{'1%'}}  ------ measure - (may not work for certain databases)
-top__[[Region]]{{5}} ------ Top x items
-top__[[Count]]{{5}}
-btm__[[Region]]{{3}} ------ Bottom x items
-btm__[[Count]]{{3}}
-          </code>
+            <h4>Works for dimension and measure:</h4>
+            <code class="block">
+                eq__[[Region]]{{North}} ------ dimension - Equals
+                eq__[[Count]]{{50}} ------ measure - (shows no data currently - issue has been reported as PANINT-5702)
+                gt__[[Region]]{{North}} ------ Greater than - (Note: dimension - upper and lower case value makes a difference)
+                gt__[[Count]]{{50}}
+                lt__[[Region]]{{North}} ------ Lower than - (dimension - upper and lower case value makes a difference)
+                lt__[[Count]]{{50}}
+                ge__[[Region]]{{North}} ------ Greater or equals - (dimension - upper and lower case value makes a difference)
+                ge__[[Count]]{{50}}
+                le__[[Region]]{{North}} ------ Lower or equals - (dimension - upper and lower case value makes a difference)
+                le__[[Count]]{{50}}
+                ne__[[Region]]{{North}} ------ Not equals
+                ne__[[Count]]{{50}}
+                like__[[Region]]{{Nor%}} ------ Like - use % to represent wild card / any text
+                like__[[Count]]{{'1%'}} ------ measure - (may not work for certain databases)
+                nlike__[[Region]]{{Nor%}} ------ Not like
+                nlike__[[Count]]{{'1%'}} ------ measure - (may not work for certain databases)
+                top__[[Region]]{{5}} ------ Top x items
+                top__[[Count]]{{5}}
+                btm__[[Region]]{{3}} ------ Bottom x items
+                btm__[[Count]]{{3}}
+            </code>
 
-          <h4>Works for measure only:</h4>
-          <code class="block">
-btw__[[Count]]{{300::::500}} ------ Between 300 and 500
-nbtw__[[Count]]{{300::::500}} ------ Not between 300 and 500
-          </code>
+            <h4>Works for measure only:</h4>
+            <code class="block">
+                btw__[[Count]]{{300::::500}} ------ Between 300 and 500
+                nbtw__[[Count]]{{300::::500}} ------ Not between 300 and 500
+            </code>
 
-          <h4>Works for dimension only:</h4>
-          <code class="block">
-in__[[Region]]{{North}} ------ In
-in__[[Region]]{{North::::West::::South}} ------ In the listed items  -- use :::: to separate items
-nin__[[Region]]{{North}} ------ Not in
-nin__[[Region]]{{North::::West::::South}} ------ Not in the listed items
-          </code>
+            <h4>Works for dimension only:</h4>
+            <code class="block">
+                in__[[Region]]{{North}} ------ In
+                in__[[Region]]{{North::::West::::South}} ------ In the listed items -- use :::: to separate items
+                nin__[[Region]]{{North}} ------ Not in
+                nin__[[Region]]{{North::::West::::South}} ------ Not in the listed items
+            </code>
 
-          <h3>Delimiters</h3>
-          <code class="block">
-/!$!    ---- used to separate multiple criteria items
-::::    ---- used to separate values within {{}}, used for between and in list criteria
-          </code>
+            <h3>Delimiters</h3>
+            <code class="block">
+                /!$! ---- used to separate multiple criteria items
+                :::: ---- used to separate values within {{}}, used for between and in list criteria
+            </code>
         </div>
-      </div>
     </div>
-  </body>
+</div>
+</body>
 </html>
