@@ -30,9 +30,6 @@
             <h1>Need more help?</h1>
             <p>If you need any more help, contact us at: <a href="mailto:support@panintelligence.com">support@panintelligence.com</a></p>
 
-            <!-- Helper to convert xml to json: https://github.com/metatribal/xmlToJSON -->
-            <script src="js/xmlToJSON.js"></script>
-
             <script>
                 /**
                  * Chart Embed URL https://localhost:224/pi/chart#chart-filter/290__1
@@ -47,23 +44,27 @@
 
                     //I'm separating this here because it makes it easier to insert the token after /chart
                 var url = "https://localhost:8224/" //Change this to your server
-                var tokenUrl = "https://localhost:8224/" //Change this to your server
-
-                var username1 = document.getElementById("u1").value
-                var username2 = document.getElementById("u2").value
-                var password1 = document.getElementById("p1").value
-                var password2 = document.getElementById("p2").value
 
                 var chartFragment = "#chart-filter/198__1" //Change this to the chart you want to see
 
-                var apiToken = "panMISDashboardWebServices/api/token/"
+                var apiToken = "pi/api/v2/tokens"
                 var piChart = "pi/chart"
 
-                function loginAndLoad(chart, user, pass) {
-                    $.post(tokenUrl + apiToken, {username: user, password: pass}, function (data) {
-                        var response = xmlToJSON.parseXML(data) // JSON is easier to manipulate in javascript...
-                        var token = response.UserDetails[0].Token[0]._text
-                        loadChart(token, chart)
+                function loginAndLoad(chart, username, password) {
+                    $.ajax({
+                        // POST to the API with username and password to swap that for a session token
+                        type: "POST",
+                        url: url + apiToken,
+                        contentType: "application/json",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        beforeSend: function (xhr, settings) {
+                            xhr.setRequestHeader("Authorization", "basic " + username + ":" + password);
+                        },
+                        success: function (data) {
+                            loadChart(data.token, chart);
+                        }
                     });
                 }
 
@@ -89,9 +90,13 @@
                 }
 
                 document.getElementById("c1btn").onclick = function () {
+                    var username1 = document.getElementById("u1").value;
+                    var password1 = document.getElementById("p1").value;
                     loginAndLoad("chart1", username1, password1);
                 }
                 document.getElementById("c2btn").onclick = function () {
+                    var username2 = document.getElementById("u2").value;
+                    var password2 = document.getElementById("p2").value;
                     loginAndLoad("chart2", username2, password2);
                 }
 
