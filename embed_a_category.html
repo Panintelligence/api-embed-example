@@ -64,7 +64,7 @@
                         xhr.setRequestHeader("Authorization", "basic " + username + ":" + password);
                     },
                     success: function (data) {
-                        loadChart(data.token);
+                        loadCategory(data.token);
                     }
                 });
 
