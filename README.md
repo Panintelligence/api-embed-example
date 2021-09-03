@@ -4,8 +4,8 @@ This repository contains examples on how to embed.
 To use any of the examples, you must have [Configured your Panintelligence Dashboard for embedding](https://panintelligence.atlassian.net/wiki/spaces/PD/pages/181010582/Embedding+Dashboards+Charts).
 
 This comes in two flavours of examples:
-* Using just a frontend application with vanilla javascript (and some jQuery) - see [static_examples](https://github.com/Panintelligence/api-embed-example/tree/fullstack-app/static_examples)
-* Using a client-server application with Express for the backend and React for the frontend - see [client-server-app](https://github.com/Panintelligence/api-embed-example/tree/fullstack-app/client-server-app)
+* Using just a frontend application with vanilla javascript (and some jQuery) - see [static_examples](./static_examples)
+* Using a client-server application with Express for the backend and React for the frontend - see [client-server-app](./client-server-app)
 
 ## Post Message API
 When embedding a full dashboard (as opposed to individual charts), you can use the post message functionality to control the Dashboard interface .
