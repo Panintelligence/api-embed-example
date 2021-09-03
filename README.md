@@ -1,28 +1,18 @@
-# api-embed-example
-An example application to help get started with the Pi API and embedding
+# API Embed Example
+This repository contains examples on how to embed.
 
-To try this out, grab the latest release zip file and extract the api-embed-example into Dashboard/tomcat/webapps on a test instance of the Dashboard. 
+To use any of the examples, you must have [Configured your Panintelligence Dashboard for embedding](https://panintelligence.atlassian.net/wiki/spaces/PD/pages/181010582/Embedding+Dashboards+Charts).
 
-Then to get started see <a href="README.html">README.HTML</a>
-
-
-The security level applied by browsers for external webapps requires additional config. 
-For a real-world type test use runServer.sh (you will need NodeJS) as follows:
-1. Use your hosts file to add entries for the Dashboard and this server
-eg 127.0.0.1 dashboard
-   127.0.0.1 myapp
-2. Configure the dashboard to allow embedding from myapp
-3. Update values in html files from https://localhost to https://dashboard (as well as credentials if not default)
-4. Run runServer.sh or equivalent
-5. Open README.HTML and try some embedding!
-
+This comes in two flavours of examples:
+* Using just a frontend application with vanilla javascript (and some jQuery) - see [static_examples](./static_examples)
+* Using a client-server application with Express for the backend and React for the frontend - see [client-server-app](./client-server-app)
 
 ## Post Message API
-You can use the post message functionality to control the Dashboard interface when embedding. To utilise this you will need to have the Dashboard fully configured to support embedding.
+When embedding a full dashboard (as opposed to individual charts), you can use the post message functionality to control the Dashboard interface .
 
 You can read detail on postmessage in general at: https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage
 
-If you have a Dashboard embedded in an Iframe you can send the following commands and you should see the actions reflected in the interface:
+If you have a Dashboard embedded in an `iframe` you can send the following commands and you should see the actions reflected in the interface:
 
 | message | action |
 |--|--|
@@ -34,6 +24,3 @@ If you have a Dashboard embedded in an Iframe you can send the following command
 | `pin-drawer:right` | Pins the right hand side drawer on the view |
 | `unpin-drawer:left` | Unpins the left hand side drawer on the view |
 | `unpin-drawer:right` | Unpins the right hand side drawer on the view |
-
-
-
