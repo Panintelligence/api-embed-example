@@ -9,4 +9,4 @@ START /b npm start
 echo "Starting frontend..."
 cd ..
 cd frontend
-START /b npm start
+npm start

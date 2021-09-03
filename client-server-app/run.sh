@@ -8,9 +8,18 @@ while [[ -h "${SOURCE}" ]]; do # resolve ${SOURCE} until the file is no longer a
 done
 CURRENT_DIR="$( cd -P "$( dirname "${SOURCE}" )" && pwd )"
 
-PI_URL="https://localhost:8224"
-PI_USERNAME="admin"
-PI_PASSWORD="dashboard"
+function teardown() {
+    # Ensure express is killed
+    express_server=$(ps aux | grep node | grep www | awk '{ print $2 }')
+    echo "Shutting server down..."
+    kill "${express_server}"  > /dev/null 2>&1
+}
+
+trap teardown SIGINT
+
+export PI_URL="https://localhost:8224"
+export PI_USERNAME="admin"
+export PI_PASSWORD="dashboard"
 
 echo "Starting backend..."
 cd "${CURRENT_DIR}/backend"
@@ -18,4 +27,4 @@ npm start &
 
 echo "Starting frontend..."
 cd "${CURRENT_DIR}/frontend"
-npm start &
+npm start
