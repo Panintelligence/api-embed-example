@@ -24,3 +24,33 @@ If you have a Dashboard embedded in an `iframe` you can send the following comma
 | `pin-drawer:right` | Pins the right hand side drawer on the view |
 | `unpin-drawer:left` | Unpins the left hand side drawer on the view |
 | `unpin-drawer:right` | Unpins the right hand side drawer on the view |
+
+### Example
+The code below would open the category list and pin it:
+```javascript
+targetWindow.postMessage("open-drawer:left");
+targetWindow.postMessage("pin-drawer:left");
+```
+
+## Query Parameters
+### Category Modes
+You can pass a URL query parameter to control the "mode" the category is using. There are 4 modes:
+
+| Query Parameter  | Mode Name                | Description |
+|------------------|--------------------------|-------------|
+| `categoryMode=0` | Normal                   | This will show the category exactly as it appears on the dashboard. |
+| `categoryMode=1` | Headless Single Category | This will hide the category header and the category list. |
+| `categoryMode=2` | Single Category          | This will show the category header options but will still hide the category list. |
+| `categoryMode=3` | Headless Normal          | This will remove the header but keep the category list. |
+
+### Filter Panel
+You can also tell the dashboard to start with the filter panel open.
+
+This is equivalent to using the Post Message API with:
+```javascript
+targetWindow.postMessage("open-drawer:right");
+```
+
+| Query Parameter                 | Description                            |
+|---------------------------------|----------------------------------------|
+| `enableDynamicFilterPanel=true` | Opens the Category Object Filter panel |
