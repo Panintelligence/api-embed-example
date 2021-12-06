@@ -19,6 +19,9 @@ For this, the [frontend](./frontend/) is a simple React application that is embe
 * [Panintelligence Dashboard](https://www.panintelligence.com/)
   * that is [configured for embedding](https://panintelligence.atlassian.net/wiki/spaces/PD/pages/181010582/Embedding+Dashboards+Charts)
 
+## Pre-Running
+Before running, you need to run `npm install`
+
 ## Running
 To run this app you can run `./run.sh` on Linux or `run.bat` on Windows.
 
