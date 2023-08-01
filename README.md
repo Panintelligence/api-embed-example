@@ -14,16 +14,20 @@ You can read detail on postmessage in general at: https://developer.mozilla.org/
 
 If you have a Dashboard embedded in an `iframe` you can send the following commands and you should see the actions reflected in the interface:
 
-| message | action |
-|--|--|
-| `open-drawer:left` | Opens the left hand side drawer on the view |
-| `open-drawer:right` | Opens the right hand side drawer on the view |
-| `close-drawer:left` | Closes the left hand side drawer on the view |
-| `close-drawer:right` | Closes the right hand side drawer on the view |
-| `pin-drawer:left` | Pins the left hand side drawer on the view |
-| `pin-drawer:right` | Pins the right hand side drawer on the view |
-| `unpin-drawer:left` | Unpins the left hand side drawer on the view |
-| `unpin-drawer:right` | Unpins the right hand side drawer on the view |
+| message | action | introduced |
+|--|--|--|
+| `open-drawer:left` | Opens the left hand side drawer on the view ||
+| `open-drawer:right` | Opens the right hand side drawer on the view ||
+| `close-drawer:left` | Closes the left hand side drawer on the view ||
+| `close-drawer:right` | Closes the right hand side drawer on the view ||
+| `pin-drawer:left` | Pins the left hand side drawer on the view ||
+| `pin-drawer:right` | Pins the right hand side drawer on the view ||
+| `unpin-drawer:left` | Unpins the left hand side drawer on the view ||
+| `unpin-drawer:right` | Unpins the right hand side drawer on the view ||
+| `refresh-category` | Refreshes the current category | August 2023 |
+| `reset-to-default-view-of-category` | Resets to the default view of the category | August 2023 |
+| `revert-to-default-layout` | Reverts to the default category layout  | August 2023 |
+
 
 ### Example
 The code below would open the category list and pin it:
