@@ -6,7 +6,7 @@ const algorithm = 'RS512' // or RS384 or RS256 currently supported
 
 async function loginWithJWTAndIframe(){
     await grabPrivateKeyString(async function (privateKeyString) {
-        let privateKey = await importPKCS8(privateKeyString, algorithm);
+        const privateKey = await importPKCS8(privateKeyString, algorithm);
         const jwt = await createJWT(privateKey, algorithm);
         await initIframe(jwt);
     })
