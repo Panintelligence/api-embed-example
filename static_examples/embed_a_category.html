@@ -28,11 +28,11 @@
                 /**
                  *                                               Category display mode
                  *                                                        |
-                 * Chart Embed URL https://localhost:8224/pi/?categoryMode=1#PA-CA###category/23
-                 *                 |________________________||__________|   |_________________|
-                 *                             |                |               |
-                 *                       This is your           |    And this bit identifies
-                 *                       dashboard URL          |     which category you want
+                 * Chart Embed URL https://localhost:8224/pi/?categoryMode=1#/dashboard-system/#/redirectToDefaultCategoryState/#PA-CA###category/23
+                 *                 |________________________||__________|                                                         |_________________|
+                 *                             |                |                                                                         |
+                 *                       This is your           |                                                                 And this bit identifies
+                 *                       dashboard URL          |                                                                 which category you want
                  *                                              |
                  *                                 This bit tells the dashboard
                  *                                    that you want a chart
@@ -91,7 +91,7 @@
 
                 function changeCategoryMode(catMode) {
                     var catId = document.getElementById("category").src.split(categoryKey)[1].split('/')[0];
-                    document.getElementById("category").src = url + "/pi" + modeKey + redirect + catMode + categoryKey + catId;
+                    document.getElementById("category").src = url + "/pi" + modeKey + catMode + redirect + categoryKey + catId;
                 }
             </script>
         </div>
