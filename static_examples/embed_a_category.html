@@ -47,7 +47,8 @@
                 var categoryKey = "#PA-CA###category/";
                 var categoryFragment = categoryKey + categoryId;
                 var modeKey = "?categoryMode=";
-                var modeParam = modeKey + mode;
+                var redirect = "#/dashboard-system/#/redirectToDefaultCategoryState/" //Required as of 2024 category object panel update to work with embedding
+                var modeParam = modeKey + mode + redirect;
 
                 var apiToken = "pi/api/v2/tokens"
 
@@ -90,7 +91,7 @@
 
                 function changeCategoryMode(catMode) {
                     var catId = document.getElementById("category").src.split(categoryKey)[1].split('/')[0];
-                    document.getElementById("category").src = url + "/pi" + modeKey + catMode + categoryKey + catId;
+                    document.getElementById("category").src = url + "/pi" + modeKey + redirect + catMode + categoryKey + catId;
                 }
             </script>
         </div>
