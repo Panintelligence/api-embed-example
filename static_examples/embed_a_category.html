@@ -28,11 +28,11 @@
                 /**
                  *                                               Category display mode
                  *                                                        |
-                 * Chart Embed URL https://localhost:8224/pi/?categoryMode=1#/dashboard-system/#/redirectToDefaultCategoryState/#PA-CA###category/23
-                 *                 |________________________||__________|                                                         |_________________|
-                 *                             |                |                                                                         |
-                 *                       This is your           |                                                                 And this bit identifies
-                 *                       dashboard URL          |                                                                 which category you want
+                 * Chart Embed URL https://localhost:8224/pi/?categoryMode=1#/dashboard-system/#/redirectToDefaultCategoryState/23
+                 *                 |________________________||__________|                                                      |__|
+                 *                             |                |                                                                 |
+                 *                       This is your           |                                                       And this bit identifies
+                 *                       dashboard URL          |                                                       which category you want
                  *                                              |
                  *                                 This bit tells the dashboard
                  *                                    that you want a chart
@@ -44,11 +44,9 @@
                 var password = "dashboard"; //Change this to user's password
                 var categoryId = "23"; //Change this to the category you want to see
                 var mode = "0"; //Change this to change the category mode you want to use
-                var categoryKey = "#PA-CA###category/";
-                var categoryFragment = categoryKey + categoryId;
                 var modeKey = "?categoryMode=";
                 var redirect = "#/dashboard-system/#/redirectToDefaultCategoryState/" //Required as of 2024 category object panel update to work with embedding
-                var modeParam = modeKey + mode + redirect;
+                var modeParam = modeKey + mode;
 
                 var apiToken = "pi/api/v2/tokens"
 
@@ -84,14 +82,14 @@
                         },
                         success: function (data) {
                             // Once we have a succesful ajax request with authentication we can just forward the browser and it will use the live session
-                            document.getElementById("category").src = url + "pi/" + modeParam + categoryFragment;
+                            document.getElementById("category").src = url + "pi/" + modeParam + redirect + categoryId;
                         }
                     });
                 }
 
                 function changeCategoryMode(catMode) {
-                    var catId = document.getElementById("category").src.split(categoryKey)[1].split('/')[0];
-                    document.getElementById("category").src = url + "/pi" + modeKey + catMode + redirect + categoryKey + catId;
+                    var catId = document.getElementById("category").src.split(redirect)[1];
+                    document.getElementById("category").src = url + "/pi" + modeKey + catMode + redirect + catId;
                 }
             </script>
         </div>
