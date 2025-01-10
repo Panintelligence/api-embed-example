@@ -26,16 +26,16 @@
 
             <script>
                 /**
-                 *                                               Category display mode
-                 *                                                        |
-                 * Chart Embed URL https://localhost:8224/pi/?categoryMode=1#/dashboard-system/#/redirectToDefaultCategoryState/23
-                 *                 |________________________||__________|                                                      |__|
+                 *                                                   Category display mode
+                 *                                                            |
+                 * Category Embed URL https://localhost:8224/pi/?categoryMode=1#/dashboard-system/#/redirectToDefaultCategoryState/23
+                 *                    |________________________||__________|                                                      |__|
                  *                             |                |                                                                 |
                  *                       This is your           |                                                       And this bit identifies
                  *                       dashboard URL          |                                                       which category you want
                  *                                              |
                  *                                 This bit tells the dashboard
-                 *                                    that you want a chart
+                 *                                    that you want a category
                  */
 
                     //I'm separating this here because it makes it easier to insert the token after /chart
@@ -45,7 +45,7 @@
                 var categoryId = "23"; //Change this to the category you want to see
                 var mode = "0"; //Change this to change the category mode you want to use
                 var modeKey = "?categoryMode=";
-                var redirect = "#/dashboard-system/#/redirectToDefaultCategoryState/" //Required as of 2024 category object panel update to work with embedding
+                var redirect = "#/dashboard-system/#/redirectToDefaultCategoryState/"
                 var modeParam = modeKey + mode;
 
                 var apiToken = "pi/api/v2/tokens"
