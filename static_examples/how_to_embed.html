@@ -17,7 +17,7 @@
         <!-- ******************************************************************************************************** -->
         <div class="column">
             <h1>Example: Embedding a PanIntelligence Chart</h1>
-            <p>Example code for embedding a panintelligence chart</p>
+            <p>Example code for embedding a PanIntelligence Chart</p>
             <p>The code in this page should be simple enough, but there are inline comments to help you understand (just view the source of this page). There are also <a href="#instructions">instructions</a> on the right side (or below).</p>
             <!-- The iFrame where we'll stick the chart into -->
             <iframe id="chart" width="500" height="500" src=""></iframe>
@@ -38,13 +38,13 @@
                  */
 
                     //I'm separating this here because it makes it easier to insert the token after /chart
-                var url = "https://localhost:8224/" //Change this to your server
-                var username = "admin" //Change this to the user you want to login as
-                var password = "dashboard" //Change this to user's password
-                var chartFragment = "#chart-filter/157__1" //Change this to the chart you want to see
+                var url = "https://localhost:8224/"; //Change this to your server
+                var username = "admin"; //Change this to the user you want to login as
+                var password = "dashboard"; //Change this to user's password
+                var chartFragment = "#chart-filter/157__1"; //Change this to the chart you want to see
 
-                var apiToken = "pi/api/v2/tokens"
-                var piChart = "pi/chart"
+                var apiToken = "pi/api/v2/tokens";
+                var piChart = "pi/chart";
 
                 $.ajax({
                     // POST to the API with username and password to swap that for a session token

@@ -78,12 +78,12 @@
                 };
 
                 function applyFilter(filter) {
-                    var tmpFilters = "/t-f-p="
+                    var tmpFilters = "/t-f-p=";
                     var oldUrl = document.getElementById("chart").src.split(tmpFilters);
                     var simpleUrl = oldUrl[0];
                     var oldFilters = oldUrl.length > 1 ? oldUrl[1] : '';
 
-                    var newUrl = simpleUrl + tmpFilters + filter + (oldFilters !== "" ? "/!$!" + oldFilters : "")
+                    var newUrl = simpleUrl + tmpFilters + filter + (oldFilters !== "" ? "/!$!" + oldFilters : "");
                     document.getElementById("chart").src = newUrl;
                 };
 

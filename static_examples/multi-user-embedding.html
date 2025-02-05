@@ -43,12 +43,12 @@
                  */
 
                     //I'm separating this here because it makes it easier to insert the token after /chart
-                var url = "https://localhost:8224/" //Change this to your server
+                var url = "https://localhost:8224/"; //Change this to your server
 
-                var chartFragment = "#chart-filter/198__1" //Change this to the chart you want to see
+                var chartFragment = "#chart-filter/198__1"; //Change this to the chart you want to see
 
-                var apiToken = "pi/api/v2/tokens"
-                var piChart = "pi/chart"
+                var apiToken = "pi/api/v2/tokens";
+                var piChart = "pi/chart";
 
                 function loginAndLoad(chart, username, password) {
                     $.ajax({
@@ -93,7 +93,7 @@
                     var username1 = document.getElementById("u1").value;
                     var password1 = document.getElementById("p1").value;
                     loginAndLoad("chart1", username1, password1);
-                }
+                };
                 document.getElementById("c2btn").onclick = function () {
                     var username2 = document.getElementById("u2").value;
                     var password2 = document.getElementById("p2").value;
