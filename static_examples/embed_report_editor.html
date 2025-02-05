@@ -10,79 +10,73 @@
 <div>
     <img src="img/logo.png" style="height: 100px; width: 500px"/>
 </div>
-<div class="container">
-    <div class="flex-container">
-        <div class="column">
-            <h1>Example: Opening the Report Editor</h1>
-            <p>This example demonstrates how to open the report editor using the <i>pi-embed-actions</i> library.</p>
-            <p>For more details, visit the following resources:</p>
-            <ul>
-                <li><a href="https://github.com/Panintelligence/pi-embed-actions" target="_blank">GitHub Repository</a></li>
-                <li><a href="https://panintelligence.github.io/pi-embed-actions/" target="_blank">Library Documentation</a></li>
-            </ul>
-            <iframe id="iframe" width="700" height="500" src=""></iframe>
-            <div style="padding: 20px;"></div>
-            <div class="button-container" style="display: flex;gap:40px;">
-                <button onclick="openReportEditor(reportIdOne)" class="btn-primary"
-                        style="background-color: rgb(41, 184, 67);padding: 10px 40px;font-size: 16px;color:aliceblue;">report-2
-                </button>
-                <button onclick="openReportEditor(reportIdTwo)" class="btn-primary"
-                        style="background-color: rgb(176, 47, 131);padding: 10px 40px;font-size: 16px;color:aliceblue;">report-3
-                </button>
-                <button onclick="openReportEditor(reportIdThree)" class="btn-primary"
-                        style="background-color: rgb(42, 121, 147);padding: 10px 40px;font-size: 16px;color:aliceblue;">report-4
-                </button>
-            </div>
-            <script>
-                let piEmbedActions;
-                const url = "https://localhost:8224/"; // Change this to your server
-                const username = "admin"; // Change this to the user you want to login as
-                const password = "dashboard"; // Change this to user's password
-                const apiToken = "pi/api/v2/tokens";
-                const reportIdOne = 1; // Adjust the id to suit your setup
-                const reportIdTwo = 2; // Adjust the id to suit your setup
-                const reportIdThree = 3; // Adjust the id to suit your setup
-
-                $.ajax({
-                    type: "POST",
-                    url: url + apiToken,
-                    contentType: "application/json",
-                    xhrFields: {
-                        withCredentials: true
-                    },
-                    beforeSend: function (xhr) {
-                        xhr.setRequestHeader("Authorization", "basic " + username + ":" + password);
-                    },
-                    success: function (data) {
-                        loadEmptyDesignerPanel(data.token);
-                    }
-                });
-
-                function loadEmptyDesignerPanel(token) {
-                    $.ajax({
-                        type: "GET",
-                        url: url + "pi/auth/embeddedTokenLogin",
-                        contentType: "text/HTML",
-                        xhrFields: {
-                            withCredentials: true
-                        },
-                        beforeSend: function (xhr) {
-                            xhr.setRequestHeader("Authorization", "bearer " + token);
-                        },
-                        success: function (data) {
-                            document.getElementById("iframe").src = "https://dev.pi-dash.uk:8080/pi/?lang=en_GB&editorDisplayMode=CONTENT#/dashboard-system/#/dashboardDesigner";
-                            piEmbedActions = PiEmbedActions.createDashboard('iframe', 'https://dev.pi-dash.uk:8080/pi?lang=en_GB&editorDisplayMode=CONTENT');
-                        }
-                    });
-                }
-
-                function openReportEditor(reportId) {
-                    piEmbedActions.reportEditor.open(reportId);
-                }
-            </script>
-        </div>
-
+<div class="margin-20px">
+    <h1>Example: Opening the Report Editor</h1>
+    <p>This example demonstrates how to open the report editor using the <i>pi-embed-actions</i> library.</p>
+    <p>For more details, visit the following resources:</p>
+    <ul>
+        <li><a href="https://github.com/Panintelligence/pi-embed-actions" target="_blank">GitHub Repository</a></li>
+        <li><a href="https://panintelligence.github.io/pi-embed-actions/" target="_blank">Library Documentation</a></li>
+    </ul>
+    <div class="button-container" style="display: flex;gap:40px;">
+        <button onclick="openReportEditor(reportIdOne)" class="btn-primary"
+                style="background-color: rgb(0, 0, 0);padding: 10px 40px;font-size: 16px;color:aliceblue;">Report-1
+        </button>
+        <button onclick="openReportEditor(reportIdTwo)" class="btn-primary"
+                style="background-color: rgb(224, 57, 116);padding: 10px 40px;font-size: 16px;color:aliceblue;">Report-2
+        </button>
+        <button onclick="openReportEditor(reportIdThree)" class="btn-primary"
+                style="background-color: rgb(164, 66, 124);padding: 10px 40px;font-size: 16px;color:aliceblue;">Report-3
+        </button>
     </div>
+    <div style="padding: 6px;"></div>
+    <iframe id="iframe" width="1520" height="800" src=""></iframe>
 </div>
+<script>
+    let piDashboard;
+    const url = "https://localhost:8224/"; // Change this to your server
+    const username = "admin"; // Change this to the user you want to login as
+    const password = "dashboard"; // Change this to user's password
+    const apiToken = "pi/api/v2/tokens";
+    const reportIdOne = 1; // Adjust the id to suit your setup
+    const reportIdTwo = 2; // Adjust the id to suit your setup
+    const reportIdThree = 3; // Adjust the id to suit your setup
+
+    $.ajax({
+        type: "POST",
+        url: url + apiToken,
+        contentType: "application/json",
+        xhrFields: {
+            withCredentials: true
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("Authorization", "basic " + username + ":" + password);
+        },
+        success: function (data) {
+            loadEmptyDesignerPanel(data.token);
+        }
+    });
+
+    function loadEmptyDesignerPanel(token) {
+        $.ajax({
+            type: "GET",
+            url: url + "pi/auth/embeddedTokenLogin",
+            contentType: "text/HTML",
+            xhrFields: {
+                withCredentials: true
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Authorization", "bearer " + token);
+            },
+            success: function (data) {
+                piDashboard = PiEmbedActions.createDashboard('iframe', 'https://dev.pi-dash.uk:8080/pi?lang=en_GB&editorDisplayMode=CONTENT');
+            }
+        });
+    }
+
+    function openReportEditor(reportId) {
+        piDashboard.reportEditor.open(reportId);
+    }
+</script>
 </body>
 </html>
