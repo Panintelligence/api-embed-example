@@ -3,8 +3,9 @@ body {
     padding: 0;
 }
 
-h1, h2, h3 {
+h1, h2, h3, p {
     color: black;
+    font-family: "Red Hat Text", sans-serif;
 }
 
 code {
