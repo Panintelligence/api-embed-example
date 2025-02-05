@@ -7,8 +7,8 @@
     <script src="js/jquery-3.2.1.min.js"></script>
 </head>
 <body>
-<div style="background-color:#3F89AB;">
-    <a href="index.html"><img src="img/logo.png"/></a>
+<div>
+    <a href="index.html"> <img src="img/logo.png" style="height: 100px; width: 500px"/></a>
 </div>
 <div class="container">
     <div class="flex-container">
@@ -71,7 +71,7 @@
                             xhr.setRequestHeader("Authorization", "bearer " + token);
                         },
                         success: function (data) {
-                            // Once we have a succesful ajax request with authentication we can just forward the browser and it will use the live session
+                            // Once we have a successful ajax request with authentication we can just forward the browser and it will use the live session
                             document.getElementById("chart").src = url + piChart + chartFragment;
                         }
                     });
