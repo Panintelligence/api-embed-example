@@ -53,11 +53,11 @@
             xhr.setRequestHeader("Authorization", "basic " + username + ":" + password);
         },
         success: function (data) {
-            loadEmptyDesignerPanel(data.token);
+            loadDashboard(data.token);
         }
     });
 
-    function loadEmptyDesignerPanel(token) {
+    function loadDashboard(token) {
         $.ajax({
             type: "GET",
             url: url + "pi/auth/embeddedTokenLogin",
