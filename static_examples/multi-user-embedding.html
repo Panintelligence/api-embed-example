@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="header">
-    <a href="index.html"><img src="img/logo.png"/></a>
+    <a href="index.html"> <img class="logo" src="img/logo.png" alt="logo"/></a>
 </div>
 <div class="container">
     <div class="flex-container">
@@ -17,7 +17,7 @@
         <!-- ******************************************************************************************************** -->
         <div class="column">
             <h1>Example: Embedding charts for different users in same page</h1>
-            <p>Example code for embedding a panintelligence chart</p>
+            <p>Example code for embedding a Panintelligence chart</p>
             <p>The code in this page should be simple enough, but there are inline comments to help you understand (just view the source of this page). There are also <a href="#instructions">instructions</a> on the right side (or below).</p>
             <!-- The iFrame where we'll stick the chart into -->
             Login: <input id="u1" type="text" value="ru1"/> Password: <input id="p1" type="password" value="dashboard"/>
@@ -43,12 +43,12 @@
                  */
 
                     //I'm separating this here because it makes it easier to insert the token after /chart
-                var url = "https://localhost:8224/" //Change this to your server
+                var url = "https://localhost:8224/"; //Change this to your server
 
-                var chartFragment = "#chart-filter/198__1" //Change this to the chart you want to see
+                var chartFragment = "#chart-filter/198__1"; //Change this to the chart you want to see
 
-                var apiToken = "pi/api/v2/tokens"
-                var piChart = "pi/chart"
+                var apiToken = "pi/api/v2/tokens";
+                var piChart = "pi/chart";
 
                 function loginAndLoad(chart, username, password) {
                     $.ajax({
@@ -93,7 +93,7 @@
                     var username1 = document.getElementById("u1").value;
                     var password1 = document.getElementById("p1").value;
                     loginAndLoad("chart1", username1, password1);
-                }
+                };
                 document.getElementById("c2btn").onclick = function () {
                     var username2 = document.getElementById("u2").value;
                     var password2 = document.getElementById("p2").value;

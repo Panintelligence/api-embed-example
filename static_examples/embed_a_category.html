@@ -1,14 +1,14 @@
 <html>
 <head>
-    <title>Embedding a PanIntelligence Category</title>
+    <title>Embedding a Panintelligence Category</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="styles/style.css"/>
     <!-- Use JQuery to help with http calls -->
     <script src="js/jquery-3.2.1.min.js"></script>
 </head>
 <body>
-<div style="background-color:#3F89AB;">
-    <a href="index.html"><img src="img/logo.png"/></a>
+<div>
+    <a href="index.html"> <img class="logo" src="img/logo.png" alt="logo"/></a>
 </div>
 <div class="container">
     <div class="flex-container">
@@ -16,8 +16,8 @@
         <!-- *                                           START OF EXAMPLE                                           * -->
         <!-- ******************************************************************************************************** -->
         <div class="column">
-            <h1>Example: Embedding a PanIntelligence Category</h1>
-            <p>Example code for embedding a panintelligence category</p>
+            <h1>Example: Embedding a Panintelligence Category</h1>
+            <p>Example code for embedding a Panintelligence category</p>
             <p>The code in this page should be simple enough, but there are inline comments to help you understand (just view the source of this page). There are also <a href="#instructions">instructions</a> on the right side (or below).</p>
             <!-- The iFrame where we'll stick the chart into -->
             <iframe id="category" width="700" height="500" src=""></iframe>
@@ -45,11 +45,10 @@
                 var categoryId = "23"; //Change this to the category you want to see
                 var mode = "0"; //Change this to change the category mode you want to use
                 var modeKey = "?categoryMode=";
-                var redirect = "#/dashboard-system/#/redirectToDefaultCategoryState/"
+                var redirect = "#/dashboard-system/#/redirectToDefaultCategoryState/";
                 var modeParam = modeKey + mode;
 
-                var apiToken = "pi/api/v2/tokens"
-
+                var apiToken = "pi/api/v2/tokens";
 
                 $.ajax({
                     // POST to the API with username and password to swap that for a session token

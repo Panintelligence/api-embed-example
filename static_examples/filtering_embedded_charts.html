@@ -1,14 +1,14 @@
 <html>
 <head>
-    <title>Embedding a PanIntelligence Chart</title>
+    <title>Embedding a Panintelligence Chart</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="styles/style.css"/>
     <!-- Use JQuery to help with http calls -->
     <script src="js/jquery-3.2.1.min.js"></script>
 </head>
 <body>
-<div style="background-color:#3F89AB;">
-    <a href="index.html"><img src="img/logo.png"/></a>
+<div>
+    <a href="index.html"> <img class="logo" src="img/logo.png" alt="logo"/></a>
 </div>
 <div class="container">
     <div class="flex-container">
@@ -17,7 +17,7 @@
         <!-- ******************************************************************************************************** -->
         <div class="column1">
             <h1>Example: Using temporary filters to filter a chart via javascript</h1>
-            <p>Example code for filtering an embedded panintelligence chart</p>
+            <p>Example code for filtering an embedded Panintelligence chart</p>
             <p>The code in this page should be simple enough, but there are inline comments to help you understand (just view the source of this page). There are also <a href="#instructions">instructions</a> on the right side (or below).</p>
             <div>
                 <button onclick="reset()">Reset</button>
@@ -71,19 +71,19 @@
                             xhr.setRequestHeader("Authorization", "bearer " + token);
                         },
                         success: function (data) {
-                            // Once we have a succesful ajax request with authentication we can just forward the browser and it will use the live session
+                            // Once we have a successful ajax request with authentication we can just forward the browser and it will use the live session
                             document.getElementById("chart").src = url + piChart + chartFragment;
                         }
                     });
                 };
 
                 function applyFilter(filter) {
-                    var tmpFilters = "/t-f-p="
+                    var tmpFilters = "/t-f-p=";
                     var oldUrl = document.getElementById("chart").src.split(tmpFilters);
                     var simpleUrl = oldUrl[0];
                     var oldFilters = oldUrl.length > 1 ? oldUrl[1] : '';
 
-                    var newUrl = simpleUrl + tmpFilters + filter + (oldFilters !== "" ? "/!$!" + oldFilters : "")
+                    var newUrl = simpleUrl + tmpFilters + filter + (oldFilters !== "" ? "/!$!" + oldFilters : "");
                     document.getElementById("chart").src = newUrl;
                 };
 

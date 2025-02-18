@@ -15,4 +15,3 @@ eg 127.0.0.1 dashboard
 3. Update values in html files from https://localhost to https://dashboard (as well as credentials if not default)
 4. Run runServer.sh or equivalent
 5. Open README.HTML and try some embedding!
-6. 
