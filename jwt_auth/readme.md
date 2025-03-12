@@ -4,7 +4,7 @@
 To login with JWT you need a private/public key pair. If you sign the JWT with your private key and provide
 the matching public key to the Dashboard the trust is established and you can issue login tokens. You need to set
 one of the supported claims:
-pi:dashboard_username, pi:dashboard_email and pi:dashboard_userid
+'https://www.panintelligence.com/claims/usercode', 'https://www.panintelligence.com/claims/email'
 
 For this demo if you haven't generated keys use keys/createKeys.sh on linux to generate test keys.
 
