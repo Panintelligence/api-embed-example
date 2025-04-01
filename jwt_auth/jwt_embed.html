@@ -4,8 +4,13 @@
     <meta charset="UTF-8">
     <title>Dashboard embed with JWT auth</title>
 </head>
-<script type="module" src="piJWT/auth.js"></script>
+<script type="module">
+    import {loginWithJWTAndIframe} from "./piJWT/auth.js";
+    window.loginWithJWTAndIframe = loginWithJWTAndIframe;
+</script>
 <body>
 <iframe id="dashboardIframe" style="width: 1024px; height: 768px"></iframe>
+<div>Log in as (usercode):<input id="usercode" type="text"/></div>
+<button onclick="loginWithJWTAndIframe(document.getElementById('usercode').value)">Log in</button>
 </body>
 </html>
