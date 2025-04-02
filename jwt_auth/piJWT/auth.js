@@ -1,13 +1,12 @@
 import { SignJWT, importPKCS8 } from "https://cdnjs.cloudflare.com/ajax/libs/jose/4.14.4/index.bundle.min.js";
 
 const dashboard = 'https://localhost:8224';
-const loginAs = 'admin';
 const algorithm = 'RS512' // or RS384 or RS256 currently supported
 
-async function loginWithJWTAndIframe() {
+export async function loginWithJWTAndIframe(usercode) {
     await grabPrivateKeyString(async function(privateKeyString) {
         const privateKey = await importPKCS8(privateKeyString, algorithm);
-        const jwt = await createJWT(privateKey, algorithm);
+        const jwt = await createJWT(privateKey, algorithm, usercode);
         await initIframe(jwt);
     })
 }
@@ -25,11 +24,11 @@ async function grabPrivateKeyString(onLoad) {
     keyFile.send();
 }
 
-async function createJWT(privateKey, algorithm) {
+async function createJWT(privateKey, algorithm, usercode) {
     // All claims are namespaced to 'https://www.panintelligence.com/claims/'
     // Available authentication claims: usercode, email
     // Additional claims: userSyncPayload (see https://panintelligence.atlassian.net/wiki/spaces/PD/pages/1664516098/Auto+User+Sync)
-    return new SignJWT({ 'https://www.panintelligence.com/claims/usercode': loginAs })
+    return new SignJWT({ 'https://www.panintelligence.com/claims/usercode': usercode })
         .setProtectedHeader({ alg: algorithm })
         .setIssuedAt()
         .setExpirationTime('1h')
@@ -39,7 +38,3 @@ async function createJWT(privateKey, algorithm) {
 async function initIframe(jwt) {
     document.getElementById("dashboardIframe").src = `${dashboard}/pi/?jwt=${jwt}`
 }
-
-loginWithJWTAndIframe();
-
-

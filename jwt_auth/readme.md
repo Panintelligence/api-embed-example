@@ -22,3 +22,4 @@ If all the setup is correct you should be logged in to the Dashboard as that use
 ## Important Notes
 - Don't expose your private key in production, it needs to be kept secret!
 - The jwt creation code would typically be run server side, this is just an example!
+- You can also post your JWT to `pi/auth/jwtLogin` prior to redirecting the user if you wish to not include the JWT as part of the URL
