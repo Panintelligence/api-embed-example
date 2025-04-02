@@ -13,11 +13,13 @@ For this demo if you haven't generated keys use keys/createKeys.sh on linux to g
 ### Prerequisites to run this demo
 - Setup trusted hosts in your Dashboard to allow embedding from http://localhost:8081
 - Add the public key from signing_key.pub to the Dashboard on the admin screen (strip the header and footer)
-- Check that auth.js contains valid dashboard and loginAs values
+- Check that auth.js contains a valid dashboard url
 
 ### Running the demo
 To run the demo use run.sh, it uses npx to launch a webserver and you can open localhost:8081 in a browser.
+Enter the desired username into the input field and click Log in
 If all the setup is correct you should be logged in to the Dashboard as that user.
+You can switch to another user by simply updating the input field and clicking again
 
 ## Important Notes
 - Don't expose your private key in production, it needs to be kept secret!
