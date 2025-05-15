@@ -38,17 +38,16 @@
                  *                                    that you want a category
                  */
 
-                    //I'm separating this here because it makes it easier to insert the token after /chart
-                var url = "https://localhost:8224/"; //Change this to your server
-                var username = "admin"; //Change this to the user you want to login as
-                var password = "dashboard"; //Change this to user's password
-                var categoryId = "23"; //Change this to the category you want to see
-                var mode = "0"; //Change this to change the category mode you want to use
-                var modeKey = "?categoryMode=";
-                var redirect = "#/dashboard-system/#/redirectToDefaultCategoryState/";
-                var modeParam = modeKey + mode;
-
-                var apiToken = "pi/api/v2/tokens";
+                const url = "https://localhost:8224/"; // Change this to your server
+                const username = "admin"; // Change this to the user you want to login as
+                const password = "dashboard"; // Change this to user's password
+                const categoryId = "23"; // Change this to the category you want to see
+                const mode = "0"; // Change this to change the category mode you want to use
+                const modeKey = "?categoryMode=";
+                const modeParam = modeKey + mode;
+                const cookieName = "cookieName=test"; // Query parameter to specify the name of the cookie you want to use for your session
+                const redirect = "#/dashboard-system/#/redirectToDefaultCategoryState/";
+                const apiToken = "pi/api/v2/tokens";
 
                 $.ajax({
                     // POST to the API with username and password to swap that for a session token
@@ -81,14 +80,14 @@
                         },
                         success: function (data) {
                             // Once we have a succesful ajax request with authentication we can just forward the browser and it will use the live session
-                            document.getElementById("category").src = url + "pi/" + modeParam + redirect + categoryId;
+                            document.getElementById("category").src = url + "pi/" + modeParam + `&${cookieName}` + redirect + categoryId;
                         }
                     });
                 }
 
                 function changeCategoryMode(catMode) {
-                    var catId = document.getElementById("category").src.split(redirect)[1];
-                    document.getElementById("category").src = url + "/pi" + modeKey + catMode + redirect + catId;
+                    const catId = document.getElementById("category").src.split(redirect)[1];
+                    document.getElementById("category").src = url + "/pi" + modeKey + catMode + modeParam + `&${cookieName}` + redirect + catId;
                 }
             </script>
         </div>

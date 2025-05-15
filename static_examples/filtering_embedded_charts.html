@@ -31,15 +31,12 @@
             <p>If you need any more help, contact us at: <a href="mailto:support@panintelligence.com">support@panintelligence.com</a></p>
 
             <script>
-                //I'm separating this here because it makes it easier to insert the token after /chart
-                var url = "https://localhost:8224/"; //Change this to your server
-                var username = "admin"; //Change this to the user you want to login as
-                var password = "dashboard"; //Change this to user's password
-                var chartFragment = "#chart-filter/506__1"; //Change this to the chart you want to see
-
-                var apiToken = "pi/api/v2/tokens";
-                var piChart = "pi/chart";
-
+                const url = "https://localhost:8224/"; //Change this to your server
+                const username = "admin"; //Change this to the user you want to login as
+                const password = "dashboard"; //Change this to user's password
+                const chartFragment = "#chart-filter/506__1"; //Change this to the chart you want to see
+                const apiToken = "pi/api/v2/tokens";
+                const piChart = "pi/chart";
 
                 $.ajax({
                     // POST to the API with username and password to swap that for a session token
