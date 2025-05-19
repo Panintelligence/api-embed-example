@@ -2,7 +2,7 @@ import {SignJWT, importPKCS8} from "https://cdnjs.cloudflare.com/ajax/libs/jose/
 
 const dashboard = 'https://localhost:8224';
 const algorithm = 'RS512'; // or RS384 or RS256 currently supported
-const cookieName = "cookieName=test"; // Query parameter to specify the name of the cookie you want to use for your session
+const cookieName = "cookieName=test"; // An optional query parameter that defines the name of the cookie to be used for the session
 
 export async function loginWithJWTAndIframe(usercode) {
     await grabPrivateKeyString(async function (privateKeyString) {
